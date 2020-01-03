@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.dao.OrderDao">
+    <resultMap id="ordermap" type="Order">
+        <result property="orderNo" column="order_no"/>
+        <result property="userId" column="user_id"/>
+        <result property="shippingId" column="shipping_id"/>
+        <result property="payment" column="payment"/>
+        <result property="createTime" column="create_time"/>
+
+    </resultMap>
+    <insert id="insert" parameterType="list">
+        insert into ordere
+        (user_id,order_no,shipping_id,payment,update_time,create_time)
+                    values(#{userId},#{orderNo},#{shippingId},#{payment},now(),now())
+    </insert>
+    <select id="getOneOrder" resultMap="ordermap">
+      select * from ordere where id=(select MAX(id) from ordere)
+    </select>
+</mapper>

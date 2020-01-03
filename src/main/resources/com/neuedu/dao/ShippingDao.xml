@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.dao.ShippingDao">
+    <resultMap id="shippingmap" type="Shipping">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="revicer_name" property="revicerName"/>
+        <result column="revicer_phone" property="revicerPhone"/>
+        <result column="revicer_mobile" property="revicerMobile"/>
+        <result column="revicer_city" property="revicerCity"/>
+        <result column="revicer_district" property="revicerDistrict"/>
+        <result column="revicer_address" property="revicerAddress"/>
+        <result column="revicer_zip" property="revicerZip"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+    <select id="getAll" resultMap="shippingmap">
+        select * from shipping where user_id=1
+    </select>
+    <insert id="addShipping">
+        insert into shipping(user_id,revicer_name,revicer_phone,revicer_mobile,revicer_city,revicer_district,revicer_address,revicer_zip,create_time,update_time)
+          values(#{userId},#{revicerName},#{revicerPhone},#{revicerMobile},#{revicerCity},#{revicerDistrict},#{revicerAddress},#{revicerZip},now(),now())
+    </insert>
+    <select id="getAddressByShippingId" resultMap="shippingmap">
+        select revicer_city,revicer_district,revicer_address from shipping where id=#{#shippingId}
+    </select>
+</mapper>

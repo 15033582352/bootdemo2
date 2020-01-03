@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.dao.CartDao">
+    <resultMap id="cartmap" type="Cart">
+        <id column="user_id" property="userId"></id>
+        <result column="product_id" property="productId"></result>
+        <result column="create_time" property="createTime"></result>
+        <result column="update_time" property="updateTime"></result>
+    </resultMap>
+    <select id="getCartByUserAndPro" resultMap="cartmap">
+        select * from cart where user_id=#{userId} and product_id=#{productId}
+    </select>
+    <insert id="insertCart">
+        insert into cart(user_id,product_id,quantity,create_time,update_time) values(#{userId},#{productId},#{quantity},#{createTime},#{updateTime})
+    </insert>
+    <update id="updateCart">
+        update cart set quantity=#{quantity} where id=#{id}
+    </update>
+    <select id="getCarts" resultMap="cartmap">
+        select * from cart where user_id=#{userId}
+    </select>
+    <update id="updateChecked">
+        update cart set checked=#{checked} where user_id=#{userId} and product_id=#{proId}
+    </update>
+    <delete id="delByProId">
+        delete from cart where product_id=#{proId}
+    </delete>
+</mapper>
